@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: sportsday
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          ports:
+            - containerPort: 3306
+          env:
+            - name: TZ
+              value: Asia/Tokyo
+          envFrom:
+            - secretRef:
+                name: mysql-secret
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "3000Mi"
+          volumeMounts:
+            - name: db-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: db-persistent-storage
+          persistentVolumeClaim:
+            claimName: sportsday-mysql-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: sportsday
+  labels:
+    app: mysql
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+      name: mysql
+  selector:
+    app: mysql
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-nodeport
+  namespace: sportsday
+  labels:
+    app: mysql
+spec:
+  type: NodePort
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+      nodePort: 30036
