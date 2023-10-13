@@ -8,7 +8,7 @@ spec:
     matchLabels:
       app: backend
   replicas: 3
-  revisionHistoryLimit: 2
+  revisionHistoryLimit: 3
   template:
     metadata:
       labels:
