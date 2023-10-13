@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pma
+  name: pma
+  namespace: sportsday
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: pma
+  template:
+    metadata:
+      labels:
+        app: pma
+    spec:
+      containers:
+        - image: phpmyadmin/phpmyadmin
+          name: phpmyadmin
+          ports:
+            - containerPort: 80
+          envFrom:
+            - secretRef:
+                name: phpmyadmin-secret
+          env:
+            - name: TZ
+              value: Asia/Tokyo
+          resources:
+            requests:
+              cpu: "256m"
+              memory: "256Mi"
+            limits:
+              cpu: "512m"
+              memory: "1024Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pma-service
+  namespace: sportsday
+spec:
+  type: ClusterIP
+  selector:
+    app: pma
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
