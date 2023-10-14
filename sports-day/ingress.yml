@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sportsday-ingress
+  namespace: sportsday
+spec:
+  tls:
+    - hosts:
+        - sports-day.net
+        - api.sports-day.net
+      secretName: ingress-secret
+  rules:
+    - host: "sports-day.net"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: frontend-service
+                port:
+                  number: 80
+    - host: "api.sports-day.net"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 80
