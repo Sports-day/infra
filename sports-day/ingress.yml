@@ -61,6 +61,6 @@ spec:
             path: "/"
             backend:
               service:
-                name: pma-server
+                name: pma-service
                 port:
                   number: 80
