@@ -7,7 +7,11 @@ spec:
   tls:
     - hosts:
         - sports-day.net
+        - form.sports-day.net
+        - admin.sports-day.net
         - api.sports-day.net
+        - argocd.sports-day.net
+        - pma.sports-day.net
       secretName: ingress-secret
   rules:
     - host: "sports-day.net"
@@ -17,7 +21,27 @@ spec:
             path: "/"
             backend:
               service:
-                name: frontend-service
+                name: panel-service
+                port:
+                  number: 80
+    - host: "form.sports-day.net"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: form-service
+                port:
+                  number: 80
+    - host: "admin.sports-day.net"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: admin-service
                 port:
                   number: 80
     - host: "api.sports-day.net"
@@ -28,5 +52,25 @@ spec:
             backend:
               service:
                 name: backend-service
+                port:
+                  number: 80
+    - host: "argocd.sports-day.net"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: argocd-external-service
+                port:
+                  number: 443
+    - host: "pma.sports-day.net"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: pma-server
                 port:
                   number: 80
