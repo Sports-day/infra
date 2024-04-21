@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: panel
   namespace: sportsday
 spec:
   selector:
     matchLabels:
-      app: frontend
-  replicas: 2
+      app: panel
+  replicas: 0
   revisionHistoryLimit: 3
   template:
     metadata:
       labels:
-        app: frontend
+        app: panel
         network/database: "true"
     spec:
       containers:
@@ -33,7 +33,7 @@ spec:
               value: Asia/Tokyo
           envFrom:
             - secretRef:
-                name: frontend-secret
+                name: panel-secret
           resources:
             requests:
               cpu: "1000m"
@@ -45,12 +45,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: panel-service
   namespace: sportsday
 spec:
   type: ClusterIP
   selector:
-    app: frontend
+    app: panel
   ports:
     - protocol: TCP
       port: 80
