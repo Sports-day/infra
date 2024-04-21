@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: form
+  namespace: sportsday
+spec:
+  selector:
+    matchLabels:
+      app: form
+  replicas: 1
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: form
+        network/database: "true"
+    spec:
+      containers:
+        - name: sports-day-panel
+          image: ghcr.io/sports-day/sports-day-form:main
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 3000
+            failureThreshold: 20
+            initialDelaySeconds: 0
+            periodSeconds: 30
+          env:
+            - name: TZ
+              value: Asia/Tokyo
+          envFrom:
+            - secretRef:
+                name: form-secret
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1024Mi"
+            limits:
+              cpu: "2000m"
+              memory: "4096Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: form-service
+  namespace: sportsday
+spec:
+  type: ClusterIP
+  selector:
+    app: form
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
