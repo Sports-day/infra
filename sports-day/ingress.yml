@@ -63,7 +63,7 @@ spec:
               service:
                 name: argocd-external-service
                 port:
-                  number: 443
+                  number: 80
     - host: "pma.sports-day.net"
       http:
         paths:
