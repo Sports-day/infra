@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: form
+  name: admin
   namespace: sportsday
 spec:
   selector:
     matchLabels:
-      app: form
+      app: admin
   replicas: 1
   revisionHistoryLimit: 3
   template:
     metadata:
       labels:
-        app: form
+        app: admin
         network/database: "true"
     spec:
       containers:
         - name: sports-day-panel
-          image: ghcr.io/sports-day/sports-day-form:main
+          image: ghcr.io/sports-day/sports-day-admin:main
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
@@ -45,12 +45,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: form-service
+  name: admin-service
   namespace: sportsday
 spec:
   type: ClusterIP
   selector:
-    app: form
+    app: admin
   ports:
     - protocol: TCP
       port: 80
