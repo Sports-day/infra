@@ -34,6 +34,8 @@ spec:
           envFrom:
             - secretRef:
                 name: frontend-secret
+            - secretRef:
+                name: admin-secret
           resources:
             requests:
               cpu: "500m"

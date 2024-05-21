@@ -33,6 +33,8 @@ spec:
               value: Asia/Tokyo
           envFrom:
             - secretRef:
+                name: frontend-secret
+            - secretRef:
                 name: panel-secret
           resources:
             requests:
