@@ -47,13 +47,3 @@ spec:
                 name: backend-service
                 port:
                   number: 80
-    - host: "pma.sports-day.net"
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: pma-service
-                port:
-                  number: 80
