@@ -7,7 +7,7 @@ metadata:
   nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
   rules:
-    - host: "sports-day.net"
+    - host: "sportsday.edu.h.nc-toyama.ac.jp"
       http:
         paths:
           - pathType: Prefix
@@ -17,17 +17,7 @@ spec:
                 name: panel-service
                 port:
                   number: 80
-    - host: "form.sports-day.net"
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: form-service
-                port:
-                  number: 80
-    - host: "admin.sports-day.net"
+    - host: "admin.sportsday.edu.h.nc-toyama.ac.jp"
       http:
         paths:
           - pathType: Prefix
@@ -37,7 +27,7 @@ spec:
                 name: admin-service
                 port:
                   number: 80
-    - host: "api.sports-day.net"
+    - host: "api.sportsday.edu.h.nc-toyama.ac.jp"
       http:
         paths:
           - pathType: Prefix
