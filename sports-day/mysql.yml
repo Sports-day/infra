@@ -4,7 +4,7 @@ metadata:
   name: mysql
   namespace: sportsday
 spec:
-  replicas: 1
+  replicas: 0
   revisionHistoryLimit: 3
   selector:
     matchLabels:
@@ -57,20 +57,3 @@ spec:
   selector:
     app: mysql
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql-nodeport
-  namespace: sportsday
-  labels:
-    app: mysql
-spec:
-  type: NodePort
-  selector:
-    app: mysql
-  ports:
-    - protocol: TCP
-      port: 3306
-      targetPort: 3306
-      nodePort: 30036
