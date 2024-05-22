@@ -29,11 +29,11 @@ spec:
                 name: mysql-secret
           resources:
             requests:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: "1000m"
+              memory: "1024Mi"
             limits:
               cpu: "2000m"
-              memory: "3072Mi"
+              memory: "4096Mi"
           volumeMounts:
             - name: db-persistent-storage
               mountPath: /var/lib/mysql
