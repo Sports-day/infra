@@ -5,14 +5,14 @@ metadata:
   namespace: sportsday
 spec:
   capacity:
-    storage: 30Gi
+    storage: 10Gi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual
   hostPath:
-    path: /mnt/raid/sportsday
+    path: /var/sportsday
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -24,5 +24,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: 10Gi
   storageClassName: manual
