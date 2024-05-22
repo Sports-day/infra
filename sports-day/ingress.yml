@@ -3,14 +3,9 @@ kind: Ingress
 metadata:
   name: sportsday-ingress
   namespace: sportsday
+  nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
-  tls:
-    - hosts:
-        - sports-day.net
-        - form.sports-day.net
-        - admin.sports-day.net
-        - api.sports-day.net
-        - pma.sports-day.net
   rules:
     - host: "sports-day.net"
       http:
