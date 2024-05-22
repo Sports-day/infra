@@ -10,9 +10,7 @@ spec:
         - form.sports-day.net
         - admin.sports-day.net
         - api.sports-day.net
-        - argocd.sports-day.net
         - pma.sports-day.net
-      secretName: ingress-secret
   rules:
     - host: "sports-day.net"
       http:
